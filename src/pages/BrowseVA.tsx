@@ -12,7 +12,7 @@ type Artwork = {
   _images: Images;
 };
 
-export default function Browse() {
+export default function BrowseVA() {
   const query = useQuery({
     queryKey: ["VAArtworks"],
     queryFn: fetchVAArtworks,
