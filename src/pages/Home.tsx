@@ -13,3 +13,5 @@ export default function Home() {
     </div>
   );
 }
+
+// separate browsing pages are needed per museum API as parameters differ

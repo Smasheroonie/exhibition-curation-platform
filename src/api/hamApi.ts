@@ -6,3 +6,5 @@ export async function fetchHAMArtworks(page: number = 2) {
   );
   return res.json();
 }
+
+// params need redoing
