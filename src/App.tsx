@@ -3,6 +3,7 @@ import BrowseVA from "./pages/BrowseVA";
 import BrowseHAM from "./pages/BrowseHAM";
 import Home from "./pages/Home";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Browse from "./pages/Browse";
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="browse-va" element={<BrowseVA />} />
             <Route path="browse-ham" element={<BrowseHAM />} />
+            <Route path="browse" element={<Browse />} />
           </Routes>
         </div>
       </div>
