@@ -1,32 +1,54 @@
+import { Link } from "react-router";
+
 type ArtworkCardProps = {
   title: string;
   thumbnail: string;
+  place: string;
+  date: string;
+  person: string;
+  institution: string;
+  objectId: string;
 };
 
-export default function ArtworkCard({ title, thumbnail }: ArtworkCardProps) {
+export default function ArtworkCard({
+  title,
+  thumbnail,
+  place,
+  date,
+  person,
+  institution,
+  objectId,
+}: ArtworkCardProps) {
   return (
-    <div className="flex gap-2 outline m-3 p-4">
-      <div className="outline">
+    <div className="flex-col gap-2 outline m-3 p-4">
+      <h2 className="font-bold text-lg truncate">{title || "Untitled"}</h2>
+      <div className="w-auto h-72 overflow-clip">
         <img
-          className="size-44 md:size-60 object-cover"
-          src={
-            thumbnail ||
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
-          }
+          className="h-full w-full object-scale-down"
+          src={thumbnail}
           alt="placeholder artwork"
         />
       </div>
       <div className="flex flex-col justify-between w-full">
         <div className="flex flex-col gap-1">
-          <h2 className="font-bold">{title}</h2>
+          <p className="text-sm">{person || "Unknown"}</p>
+          <p className="text-sm">{date || "Unknown"}</p>
+          <p className="text-sm">{place || "Unknown"}</p>
           <p className="text-sm">
-            Description lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum{" "}
+            {institution === "harvard"
+              ? "Harvard Art Museums"
+              : "Victoria & Albert Museum"}
           </p>
         </div>
         <div className="flex justify-end gap-2">
+          <Link
+            className="border-2 p-1"
+            to={`/artwork/${institution}/${objectId}`}
+          >
+            View
+          </Link>
           <button className="border-2 p-1">Share</button>
-          <button className="border-2 p-1">Save to collection</button>
+          <button className="border-2 p-1">Save</button>
         </div>
       </div>
     </div>
