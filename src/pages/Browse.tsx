@@ -61,8 +61,6 @@ export default function Browse() {
     placeholderData: keepPreviousData,
   });
 
-  console.log(vaQuery.data, hamQuery.data);
-
   useEffect(() => {
     if (vaQuery.isSuccess && hamQuery.isSuccess) {
       const hamArray: ProcessedArtwork[] =

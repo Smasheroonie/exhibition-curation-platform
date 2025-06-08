@@ -3,37 +3,65 @@ import { fetchHAMObject } from "../api/hamApi";
 import { useParams } from "react-router";
 import { useEffect } from "react";
 
+type Image = {
+  baseimageurl: string;
+  imageid: string;
+};
+
 export default function HAMArtwork() {
   const { id } = useParams();
 
-  const { data } = useQuery({
-    queryKey: ["artwork"],
-    queryFn: () => fetchHAMObject(id),
-  });
+  if (id) {
+    const { data, isPending, isError } = useQuery({
+      queryKey: ["artwork", id],
+      queryFn: () => fetchHAMObject(id),
+      staleTime: 300000,
+      refetchOnWindowFocus: false,
+    });
 
-  console.log(data);
+    console.log(data);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
-  return (
-    <div>
-      <h1 className="font-bold">{data?.title}</h1>
-      <p>{data?.description || "No description."}</p>
-      <p>{data?.century}</p>
-      <p>{data?.culture}</p>
-      <p>{data?.department}</p>
-      <p>{data?.division}</p>
-      <span>Technique: </span>
-      <p>{data?.technique}</p>
-      <span>Materials: </span>
-      <p>{data?.medium}</p>
-      {data?.images.map((image) => (
-        <img className="size-40" src={image.baseimageurl} alt="" />
-      ))}
-    </div>
-  );
+    if (isPending) {
+      return <span>Loading...</span>;
+    }
+
+    if (isError) {
+      return <span>Error fetching data. Please try again.</span>;
+    }
+
+    if (!data) {
+      return <span>No artwork data found.</span>;
+    }
+
+    return (
+      <div>
+        <h1 className="font-bold">{data?.title}</h1>
+        <p>{data?.description || "No description."}</p>
+        <p>{data?.century}</p>
+        <p>{data?.culture}</p>
+        <p>{data?.department}</p>
+        <p>{data?.division}</p>
+        <span>Technique: </span>
+        <p>{data?.technique}</p>
+        <span>Materials: </span>
+        <p>{data?.medium}</p>
+        {data?.images.map((image: Image) => (
+          <img
+            className="size-40"
+            src={image.baseimageurl}
+            alt={data?.title}
+            key={image.imageid}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return <p>Artwork ID error.</p>;
 }
 
 // add more data?
