@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { UserAuth } from "../context/AuthContext";
 
 export default function UserProfile() {
@@ -14,6 +14,10 @@ export default function UserProfile() {
       ) : (
         <p>Visiting another user's profile!</p>
       )}
+      <p>Collections:</p>
+      <Link to={"/collection/123"}>
+        <p className="border-2 bg-blue-300">{"My Collection"}</p>
+      </Link>
     </div>
   );
 }

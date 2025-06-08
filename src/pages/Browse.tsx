@@ -157,23 +157,25 @@ export default function Browse() {
         onSubmit={handleSubmit}
         className="flex justify-center mt-3 w-screen"
       >
-        <label htmlFor="searchbar">
-          <input
-            className="outline px-1"
-            type="text"
-            name="searchbar"
-            placeholder="Search art"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-        </label>
+        <label htmlFor="searchbar"></label>
+        <input
+          className="outline px-1"
+          type="text"
+          name="searchbar"
+          id="searchbar"
+          placeholder="Search art"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
         <button type="submit" className="bg-blue-300 outline ml-1 px-1">
           Search
         </button>
       </form>
       <div className="flex justify-center pt-3 gap-2">
-        <p>Order: </p>
+        <label htmlFor="order-select">Order: </label>
         <select
+          name="order-select"
+          id="order-select"
           value={orderParam}
           onChange={(e) => setOrderParam(e.target.value)}
           className=""
@@ -182,7 +184,6 @@ export default function Browse() {
           <option value="asc">Oldest First</option>
         </select>
       </div>
-
       <div>
         <div className="flex-col space-y-3">
           {allArtworks?.map((artwork) => (

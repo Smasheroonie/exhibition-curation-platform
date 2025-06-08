@@ -6,6 +6,7 @@ import HAMArtwork from "./pages/HAMArtwork";
 import Header from "./components/Header";
 import SignIn from "./pages/SignIn";
 import UserProfile from "./pages/UserProfile";
+import Collection from "./pages/Collection";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,10 @@ function App() {
             <Route path="/artwork/harvard/:id" element={<HAMArtwork />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/profile/:uid" element={<UserProfile />} />
+            <Route
+              path="/collection/:collection_id"
+              element={<Collection />}
+            ></Route>
           </Routes>
         </div>
       </div>
