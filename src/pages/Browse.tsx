@@ -128,7 +128,13 @@ export default function Browse() {
 
       setAllArtworks(combinedArr);
     }
-  }, [vaQuery.data, hamQuery.data]);
+  }, [
+    vaQuery.data,
+    hamQuery.data,
+    vaQuery.isSuccess,
+    hamQuery.isSuccess,
+    orderParam,
+  ]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -223,3 +229,5 @@ export default function Browse() {
     </div>
   );
 }
+
+// grid with larger images on desktop

@@ -3,11 +3,33 @@ import { supabase } from "../api/supabase";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { UserAuth } from "../context/AuthContext";
 import { Link } from "react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 export default function SignIn() {
   const { session } = UserAuth();
   const [displayName, setDisplayName] = useState("");
+
+  const updateUser = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .update({ username: displayName })
+      .eq("id", session?.user.id)
+      .select();
+
+    if (error) {
+      console.error(`Error updating profile username`, error.message);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      console.warn(`No profile found to update.`);
+      return;
+    }
+
+    console.log("Profile updated successfully:", data);
+  };
 
   if (!session) {
     return (
@@ -18,17 +40,6 @@ export default function SignIn() {
       />
     );
   } else {
-    const updateUser = async () =>
-      await supabase.auth.updateUser({
-        data: {
-          user: {
-            display_name: displayName,
-          },
-        },
-      });
-
-    console.log(session);
-
     return (
       <div className="flex items-center justify-center">
         <div>
