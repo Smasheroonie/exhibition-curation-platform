@@ -160,14 +160,16 @@ export default function Browse() {
   }
 
   return (
-    <div className="flex-col justify-center">
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 py-8 px-4">
       <form
         onSubmit={handleSubmit}
-        className="flex justify-center mt-3 w-screen"
+        className="flex justify-center mb-6 w-full max-w-md rounded-md shadow-md"
       >
-        <label htmlFor="searchbar"></label>
+        <label htmlFor="searchbar" className="sr-only">
+          Search Artworks
+        </label>
         <input
-          className="outline px-1"
+          className="flex-grow border border-gray-300 rounded-l-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           type="text"
           name="searchbar"
           id="searchbar"
@@ -175,25 +177,32 @@ export default function Browse() {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
-        <button type="submit" className="bg-blue-300 outline ml-1 px-1">
+        <button
+          type="submit"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md transition-colors duration-200"
+        >
           Search
         </button>
       </form>
-      <div className="flex justify-center pt-3 gap-2">
-        <label htmlFor="order-select">Order: </label>
+
+      <div className="flex items-center gap-2 mb-6">
+        <label htmlFor="order-select" className="font-medium text-gray-700">
+          Order:{" "}
+        </label>
         <select
           name="order-select"
           id="order-select"
           value={orderParam}
           onChange={(e) => setOrderParam(e.target.value)}
-          className=""
+          className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="desc">Newest First</option>
           <option value="asc">Oldest First</option>
         </select>
       </div>
-      <div>
-        <div className="flex-col space-y-3">
+
+      <div className="w-full max-w-6xl">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 py-6">
           {allArtworks?.map((artwork) => (
             <ArtworkCard
               key={artwork.key}
@@ -207,29 +216,30 @@ export default function Browse() {
             />
           ))}
         </div>
-        <div>Current Page: {page}</div>
-        <button
-          className="outline disabled:text-gray-500"
-          onClick={() => setPage((old) => old - 1)}
-          disabled={page === 1}
-        >
-          Previous Page
-        </button>{" "}
-        <button
-          className="outline disabled:text-gray-500"
-          onClick={() => {
-            setPage((old) => old + 1);
-          }}
-          disabled={
-            page >= vaQuery.data?.info.pages &&
-            page >= hamQuery.data?.info.pages
-          }
-        >
-          Next Page
-        </button>
+
+        <div className="flex justify-center items-center gap-4 py-4">
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+            onClick={() => setPage((old) => old - 1)}
+            disabled={page === 1}
+          >
+            Previous Page
+          </button>
+          <p className="text-lg font-medium text-gray-700">Current Page: {page}</p>
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+            onClick={() => {
+              setPage((old) => old + 1);
+            }}
+            disabled={
+              page >= (vaQuery.data?.info.pages || 0) &&
+              page >= (hamQuery.data?.info.pages || 0)
+            }
+          >
+            Next Page
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-
-// grid with larger images on desktop

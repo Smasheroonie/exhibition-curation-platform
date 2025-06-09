@@ -20,32 +20,36 @@ export default function ArtworkCard({
   objectId,
 }: ArtworkCardProps) {
   return (
-    <div className="flex-col gap-2 outline m-3 p-4">
-      <h2 className="font-bold text-lg truncate">{title || "Untitled"}</h2>
-      <div className="w-auto h-72 overflow-clip">
+    <div className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-between h-full transition-transform duration-200 hover:scale-[1.02]">
+      <h2 className="font-bold text-xl text-gray-900 mb-2 text-center truncate w-full">
+        {title || "Untitled"}
+      </h2>
+      <div className="w-full h-72 flex justify-center items-center overflow-hidden mb-4">
         <img
-          className="h-full w-full object-scale-down"
+          className="max-h-full max-w-full object-contain"
           src={thumbnail}
-          alt="placeholder artwork"
+          alt="Artwork thumbnail"
         />
       </div>
-      <div className="flex flex-col justify-between w-full">
-        <div className="flex flex-col gap-1">
-          <p className="text-sm">{person || "Unknown"}</p>
-          <p className="text-sm">{date || "Unknown"}</p>
-          <p className="text-sm">{place || "Unknown"}</p>
-          <p className="text-sm">
+      <div className="flex flex-col flex-grow justify-between w-full text-center">
+        <div className="flex flex-col gap-1 mb-4">
+          <p className="text-base text-gray-700 font-medium">
+            {person || "Unknown"}
+          </p>
+          <p className="text-sm text-gray-600">{date || "Unknown"}</p>
+          <p className="text-sm text-gray-600">{place || "Unknown"}</p>
+          <p className="text-sm text-blue-700 font-semibold">
             {institution === "harvard"
               ? "Harvard Art Museums"
               : "Victoria & Albert Museum"}
           </p>
         </div>
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-center mt-auto">
           <Link
-            className="border-2 p-1"
+            className="px-6 py-2 rounded-md bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors duration-200"
             to={`/artwork/${institution}/${objectId}`}
           >
-            View
+            View Details
           </Link>
         </div>
       </div>

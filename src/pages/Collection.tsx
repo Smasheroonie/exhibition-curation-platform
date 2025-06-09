@@ -43,33 +43,56 @@ export default function Collection() {
   }, []);
 
   return (
-    <div>
-      {artworks.length ? (
-        <div>
-          {artworks.map((artwork) => (
-            <div key={artwork.artwork_id}>
-              <h1>{artwork.title}</h1>
-              <img src={artwork.image_url} alt="artwork" />
-              {session && session.user.id === uid ? (
-                <button
-                  onClick={() =>
-                    handleDelete(collection_id, artwork.artwork_id)
-                  }
-                >
-                  Delete
-                </button>
-              ) : null}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div>
-          <p>No artworks in collection!</p>
-          <Link to="/" className="flex items-center space-x-2 font-bold">
-            Browse Art
-          </Link>
-        </div>
-      )}
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 py-8 px-4">
+      <div className="w-full max-w-4xl mx-auto">
+        {artworks.length ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {artworks.map((artwork) => (
+              <div
+                key={artwork.artwork_id}
+                className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-between h-full"
+              >
+                <h2 className="font-bold text-xl text-gray-900 mb-2 text-center truncate w-full">
+                  {artwork.title || "Untitled"}
+                </h2>
+                <div className="w-full h-72 flex justify-center items-center overflow-hidden mb-4">
+                  <img
+                    className="max-h-full max-w-full object-contain"
+                    src={artwork.image_url}
+                    alt={artwork.title || "Artwork image"}
+                  />
+                </div>
+                {session && session.user.id === uid ? (
+                  <div className="mt-auto">
+                    {" "}
+                    {/* Pushes button to the bottom */}
+                    <button
+                      className="px-5 py-2 rounded-md bg-red-500 text-white font-medium hover:bg-red-600 transition-colors duration-200"
+                      onClick={() =>
+                        handleDelete(collection_id, artwork.artwork_id)
+                      }
+                    >
+                      Remove from Collection
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center p-8 bg-white rounded-lg shadow-md text-center">
+            <p className="text-xl font-semibold text-gray-700 mb-4">
+              No artworks in this collection yet!
+            </p>
+            <Link
+              to="/"
+              className="px-6 py-3 rounded-md bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2"
+            >
+              <span>Browse Art</span>
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
