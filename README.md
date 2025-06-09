@@ -1,27 +1,14 @@
-# Exhibition Curation Platform
+# Exhibitly
 
 ## Project Overview
 
-You’ve been invited by a coalition of museums and universities to develop a platform where users can explore virtual exhibitions from combined collections of antiquities and fine art. This platform will serve researchers, students, and art enthusiasts, providing a searchable and interactive experience of the collections.
-
-## Minimum Viable Product (MVP)
-
-The platform (web app or progressive web app) must include the following features:
-
-1. Users can search artworks across collections from **at least two** different Museum or University APIs.
-2. Allow users to browse artworks, from a list view, with "Previous" and "Next" page navigation options to prevent loading of too many items at once.
-3. Users can filter and/or sort artworks to make it easier to navigate through larger lists of items.
-4. Display images and essential details about each artwork individually.
-5. Enable users to create, add items to, and remove items from, personal _exhibition collections_ of saved artworks. A single user can have multiple exhibition collections.
-6. Users can view their exhibitions and the saved items within each collection.
-
-Refer to [Completion and Submission Requirements](#completion-and-submission-requirements) for more details.
+This project connects the V&A Museum API and Harvard Art Museum API into one convenient platform! You can browse, search and sort artworks, then create your own profile in order to save them in your own collections.
 
 ## Tech Choices
 
-- **Programming Languages**: Use **JavaScript** or **TypeScript**.
-- **API Integration**: Research and choose at least two free museum or university APIs to retrieve collection data. Be sure to sign up for any necessary developer accounts on free tiers.
-- **Hosting**: Use a free distribution platform (e.g., GitHub Pages or Netlify).
+- **Programming Languages**: **TypeScript**.
+- **API Integration**: **V&A Museum** and **Harvard Art Museum**
+- **Hosting**: **GitHub Pages**
 - Implement **security best practices** (e.g. for handling of API keys).
 
 The following technologies and tools are **suggestions**, not requirements:

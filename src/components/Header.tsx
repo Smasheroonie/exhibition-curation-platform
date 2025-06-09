@@ -19,7 +19,7 @@ export default function Header() {
           to="/"
           className="flex items-center space-x-2 font-bold text-gray-800 hover:text-blue-600 transition-colors duration-200 text-lg"
         >
-          Home
+          Exhibitly
         </Link>
         {!session ? (
           <Link
