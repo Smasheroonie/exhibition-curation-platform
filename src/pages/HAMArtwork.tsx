@@ -71,7 +71,6 @@ export default function HAMArtwork() {
           {data?.title || "Untitled Artwork"}
         </h1>
 
-        {/* Main artwork image display */}
         {data?.images?.[0]?.baseimageurl && (
           <div className="w-full h-96 flex justify-center items-center overflow-hidden mb-6 rounded-md bg-gray-50">
             <img
@@ -82,7 +81,6 @@ export default function HAMArtwork() {
           </div>
         )}
 
-        {/* Additional images (if any) - displayed in a smaller, scrollable row */}
         {data?.images && data.images.length > 1 && (
           <div className="flex overflow-x-auto space-x-3 pb-3 mb-6 border-b border-gray-200">
             {data.images.slice(1).map((image: Image) => (
@@ -91,7 +89,6 @@ export default function HAMArtwork() {
                 src={image.baseimageurl}
                 alt={`${data?.title} thumbnail`}
                 key={image.imageid}
-                // You might want to add onClick to change the main displayed image
               />
             ))}
           </div>
@@ -159,7 +156,6 @@ export default function HAMArtwork() {
           )}
         </div>
 
-        {/* Artwork Details Section */}
         <div className="space-y-3 text-gray-700 text-lg">
           <p>
             <span className="font-semibold">Description: </span>

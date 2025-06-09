@@ -83,7 +83,6 @@ export default function VAArtwork() {
           {data?.record.titles?.[0]?.title || "Untitled Artwork"}
         </h1>
 
-        {/* Main artwork image display */}
         {data?.record.images?.[0] && (
           <div className="w-full h-96 flex justify-center items-center overflow-hidden mb-6 rounded-md bg-gray-50">
             <img
@@ -94,7 +93,6 @@ export default function VAArtwork() {
           </div>
         )}
 
-        {/* Additional images (if any) - displayed in a smaller, scrollable row */}
         {data?.record.images && data.record.images.length > 1 && (
           <div className="flex overflow-x-auto space-x-3 pb-3 mb-6 border-b border-gray-200">
             {data.record.images.slice(1).map((image: string) => (
@@ -103,7 +101,6 @@ export default function VAArtwork() {
                 src={`https://framemark.vam.ac.uk/collections/${image}/full/max/0/default.jpg`}
                 alt={`${data?.record.titles?.[0]?.title} thumbnail`}
                 key={image}
-                // You might want to add onClick to change the main displayed image
               />
             ))}
           </div>

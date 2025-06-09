@@ -110,8 +110,6 @@ export default function UserProfile() {
         )}
         {session && session.user.id === uid && (
           <div className="mt-8 flex justify-center">
-            {" "}
-            {/* Centered the "Create Collection" button/form */}
             {!creatingNewCollection ? (
               <button
                 className="px-5 py-2 rounded-md bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors duration-200"
