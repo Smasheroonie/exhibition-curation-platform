@@ -8,42 +8,46 @@ This project connects the V&A Museum API and Harvard Art Museum API into one con
 
 - **Programming Languages**: **TypeScript**.
 - **API Integration**: **V&A Museum** and **Harvard Art Museum**
-- **Hosting**: **GitHub Pages**
-- Implement **security best practices** (e.g. for handling of API keys).
-
-The following technologies and tools are **suggestions**, not requirements:
-
-- **React** for the frontend.
+- **Hosting**: **Netlify**
+- **React/Vite** for the frontend.
 - **TanStack** for managing API calls from the frontend.
-- **TypeScript** Express server.
+- **Supabase** database and authentication, allowing for creating an account and tracking collections.
 
-## UI Requirements
+## Setup
 
-- Design should be **responsive** and adapt well across various screen sizes.
-- Ensure **accessibility** for users with disabilities (e.g., support screen readers, keyboard navigation).
-- The UI should clearly provide feedback on interactions, display **errors** (e.g., failed requests or missing fields) and show loading states when content is being fetched.
-- Design should intuitively guide users to search, view, and create curated exhibitions.
+To clone the repository, start by clicking "Code" at the top of this page and copy the given URL. Then enter the following in your terminal:
 
-## Completion and Submission Requirements
+```Bash
+git clone https://github.com/Smasheroonie/exhibition-curation-platform.git
+code exhibition-curation-platform
+```
 
-The due date will be provided, but it will be no later than four weeks after starting the project.
+This will clone and open the new folder in VS Code.
 
-Your project must fulfill the following criteria:
+Open your terminal in VS Code and run the following command to install dependencies:
 
-1. The project should be **hosted** and publicly accessible (from a web browser).
-2. **README Documentation** should include:
-   - A summary of the project
-     - (you may consider recording a **video walkthrough** of your platform, highlighting key features. Host this video on a free platform (e.g., YouTube) and include a link in your README.)
-   - Clear instructions on how to run the project locally, including setup steps (e.g., installing dependencies and configuring environment variables).
-3. Meet the [MVP requirements](#minimum-viable-product-mvp) outlined above.
+```Bash
+npm install
+```
 
-Failure to meet these requirements may result in project rejection.
+Create a .env file and add your own API key for Harvard Art Museums:
 
-## Optional Extensions
+- https://harvardartmuseums.org/collections/api
 
-If you complete the MVP and have time for additional features, consider implementing the following:
+```
+VITE_HAM_KEY=<YOUR-KEY>
+```
 
-1. **User Accounts**: Save curated exhibition collections within user profiles. Consider a back-end solution for securely storing data, and provide access to a whitelisted test account.
-2. **Social Media Integration**: Allow users to share exhibitions or individual artworks.
-3. **Cross-Platform Access**: Develop both a website and a mobile app.
-4. **Advanced Search Options**: Enable multiple filters for more refined search criteria.
+You can then run the local development server with the command:
+
+```Bash
+npm run dev
+```
+
+Ctrl + click the localhost link in the terminal to open in your browser.
+
+Supabase integration, and interaction with user login restricted features can be seen on the hosted site:
+
+- https://exhibitly-luke-goncalves.netlify.app
+
+## Thank you for viewing my project!
