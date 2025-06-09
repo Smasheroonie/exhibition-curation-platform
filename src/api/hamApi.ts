@@ -12,7 +12,7 @@ export async function fetchHAMArtworks(
   return await res.json();
 }
 
-export async function fetchHAMObject(id: string) {
+export async function fetchHAMObject(id: string | undefined) {
   const res = await fetch(
     `https://api.harvardartmuseums.org/object/${id}?apikey=${HAM_API_KEY}`
   );

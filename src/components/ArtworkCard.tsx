@@ -47,8 +47,6 @@ export default function ArtworkCard({
           >
             View
           </Link>
-          <button className="border-2 p-1">Share</button>
-          <button className="border-2 p-1">Save</button>
         </div>
       </div>
     </div>

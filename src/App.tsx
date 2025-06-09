@@ -23,7 +23,7 @@ function App() {
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/profile/:uid" element={<UserProfile />} />
             <Route
-              path="/collection/:collection_id"
+              path="/collection/:uid/:collection_id"
               element={<Collection />}
             ></Route>
           </Routes>

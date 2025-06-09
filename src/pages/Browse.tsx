@@ -144,9 +144,11 @@ export default function Browse() {
     e.preventDefault();
 
     setPage(1);
-    setSearchTerm(searchInput);
-    console.log(searchInput);
-    console.log(searchTerm);
+    if (searchInput.length) {
+      setSearchTerm(searchInput);
+    } else {
+      setSearchTerm("Art");
+    }
   };
 
   if (vaQuery.isPending || hamQuery.isPending) {

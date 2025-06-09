@@ -44,9 +44,6 @@ export default function SignIn() {
       <div className="flex items-center justify-center">
         <div>
           <p>Logged In!</p>
-          <Link to="/" className="flex items-center space-x-2 font-bold">
-            Home
-          </Link>
           <form onSubmit={updateUser}>
             <label className="pr-2" htmlFor="display-name">
               Update Display Name:
@@ -63,6 +60,9 @@ export default function SignIn() {
               Update
             </button>
           </form>
+          <Link to="/" className="flex items-center space-x-2 font-bold">
+            Browse Art
+          </Link>
         </div>
       </div>
     );

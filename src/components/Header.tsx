@@ -23,7 +23,7 @@ export default function Header() {
         ) : (
           <div className="space-x-3">
             <Link to={`/profile/${session.user.id}`}>Profile</Link>
-            <button onClick={handleLogOut}>Log Out</button>
+            <button className="cursor-pointer" onClick={handleLogOut}>Log Out</button>
           </div>
         )}
       </div>

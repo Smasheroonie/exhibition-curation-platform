@@ -10,7 +10,7 @@ export async function fetchVAArtworks(
   return await res.json();
 }
 
-export async function fetchVAObject(id: string) {
+export async function fetchVAObject(id: string | undefined) {
   const res = await fetch(`https://api.vam.ac.uk/v2/museumobject/${id}`);
 
   return await res.json();
