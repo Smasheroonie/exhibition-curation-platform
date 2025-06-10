@@ -13,6 +13,8 @@ This project connects the V&A Museum API and Harvard Art Museum API into one con
 - **TanStack** for managing API calls from the frontend.
 - **Supabase** database and authentication, allowing for creating an account and tracking collections.
 
+Please ensure you have the latest versions of Node and NPM.
+
 ## Setup
 
 To clone the repository, start by clicking "Code" at the top of this page and copy the given URL. Then enter the following in your terminal:
