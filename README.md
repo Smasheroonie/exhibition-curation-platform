@@ -38,6 +38,13 @@ Create a .env file and add your own API key for Harvard Art Museums:
 VITE_HAM_KEY=<YOUR-KEY>
 ```
 
+Also add the public Supabase URL and API key:
+
+```
+VITE_SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rdWd4bnhnZGhrd2xmeGl0bWR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkzODU2MzMsImV4cCI6MjA2NDk2MTYzM30.-TikpYsjSf850NGS3kYblCLp4eskhNgFcPQhfA4qOag"
+VITE_SUPABASE_URL="https://nkugxnxgdhkwlfxitmdw.supabase.co"
+```
+
 You can then run the local development server with the command:
 
 ```Bash
@@ -46,7 +53,7 @@ npm run dev
 
 Ctrl + click the localhost link in the terminal to open in your browser.
 
-Supabase integration, and interaction with user login restricted features can be seen on the hosted site:
+You can also visit the hosted site here:
 
 - https://exhibitly-luke-goncalves.netlify.app
 
