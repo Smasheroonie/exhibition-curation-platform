@@ -56,17 +56,20 @@ export default function UserProfile() {
     collection_id: number | undefined,
     user_id: string
   ) => {
+    setLoading(true);
     if (collection_id) {
       const deleted = await deleteCollection(collection_id, user_id);
 
       if (deleted) {
         fetchCollections();
       }
+      setLoading(false);
     }
   };
 
   const handleCreateCollection = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     if (uid && newCollectionName.trim().length) {
       try {
@@ -74,11 +77,14 @@ export default function UserProfile() {
         setNewCollectionName("");
         setCreatingNewCollection(false);
         await fetchCollections();
+        setLoading(false);
       } catch (error) {
         console.error("Error creating collection:", error);
+        setLoading(false);
       }
     } else {
       console.warn("Collection name cannot be empty.");
+      setLoading(false);
     }
   };
 
