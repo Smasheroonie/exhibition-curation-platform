@@ -1,5 +1,5 @@
 import { Auth } from "@supabase/auth-ui-react";
-import { supabase } from "../api/supabase";
+import { supabase, updateUsername } from "../api/supabase";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { UserAuth } from "../context/AuthContext";
 import { Link } from "react-router";
@@ -11,25 +11,8 @@ export default function SignIn() {
 
   const updateUser = async (e: FormEvent) => {
     e.preventDefault();
-
-    const { data, error } = await supabase
-      .from("profiles")
-      .update({ username: displayName })
-      .eq("id", session?.user.id)
-      .select();
-
-    if (error) {
-      console.error(`Error updating profile username`, error.message);
-      return;
-    }
-
-    if (!data || data.length === 0) {
-      console.warn(`No profile found to update.`);
-      return;
-    }
-
-    console.log("Profile updated successfully:", data);
-    alert("Display name updated successfully!");
+    await updateUsername(displayName, session?.user.id);
+    setDisplayName("");
   };
 
   if (!session) {

@@ -3,6 +3,7 @@ import ArtworkCard from "../components/ArtworkCard";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { fetchVAArtworks } from "../api/vaApi";
 import { fetchHAMArtworks } from "../api/hamApi";
+import { GridLoader } from "react-spinners";
 
 type HamArtwork = {
   id: number;
@@ -152,11 +153,21 @@ export default function Browse() {
   };
 
   if (vaQuery.isPending || hamQuery.isPending) {
-    return <span>Loading...</span>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8 px-4">
+        <GridLoader color="#155dfc" size={50} aria-label="Loading spinner" />
+      </div>
+    );
   }
 
   if (vaQuery.isError || hamQuery.isError) {
-    return <span>Error fetching data. Please try again.</span>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8 px-4">
+        <span className="text-red-400 text-2xl">
+          Error fetching data. Please try again.
+        </span>
+      </div>
+    );
   }
 
   return (
@@ -225,7 +236,9 @@ export default function Browse() {
           >
             Previous Page
           </button>
-          <p className="text-lg font-medium text-gray-700">Current Page: {page}</p>
+          <p className="text-lg font-medium text-gray-700">
+            Current Page: {page}
+          </p>
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             onClick={() => {

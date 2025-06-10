@@ -4,9 +4,11 @@ import { useState, useEffect, type FormEvent } from "react";
 import {
   deleteCollection,
   getCollections,
+  getUser,
   insertCollection,
   type Collection,
 } from "../api/supabase";
+import { GridLoader } from "react-spinners";
 
 export default function UserProfile() {
   const { session } = UserAuth();
@@ -14,12 +16,16 @@ export default function UserProfile() {
   const [collections, setCollections] = useState<Collection[] | []>([]);
   const [creatingNewCollection, setCreatingNewCollection] = useState(false);
   const [newCollectionName, setNewCollectionName] = useState("");
+  const [profileName, setProfileName] = useState("User");
+  const [loading, setLoading] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const fetchCollections = async () => {
+    setLoading(true);
     if (session?.user.id) {
       const fetchedCollections = await getCollections(session.user.id);
       if (fetchedCollections) {
@@ -30,8 +36,20 @@ export default function UserProfile() {
     }
   };
 
+  const getProfile = async () => {
+    const user = await getUser(uid);
+    setProfileName(user.username);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    fetchCollections();
+    if (!session) {
+      setLoggedIn(false);
+    } else {
+      setLoggedIn(true);
+      fetchCollections();
+      getProfile();
+    }
   }, [session]);
 
   const handleDelete = async (
@@ -64,17 +82,27 @@ export default function UserProfile() {
     }
   };
 
-  return (
+  return !loggedIn ? (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8 px-4">
+      <span className="text-red-400 text-2xl">
+        Please log in to view profile.
+      </span>
+    </div>
+  ) : loggedIn && loading ? (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8 px-4">
+      <GridLoader color="#155dfc" size={50} aria-label="Loading spinner" />
+    </div>
+  ) : (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 py-8 px-4">
       <div className="w-full max-w-4xl mx-auto">
         {uid === session?.user.id ? (
-          <p className="text-xl font-semibold text-gray-800 mb-4 text-center">
-            Welcome to your profile!
-          </p>
+          <h1 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+            Welcome, {profileName}
+          </h1>
         ) : (
-          <p className="text-xl font-semibold text-gray-800 mb-4 text-center">
+          <h1 className="text-xl font-semibold text-gray-800 mb-4 text-center">
             You are visiting another user's profile.
-          </p>
+          </h1>
         )}
         <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8 text-center">
           Collections

@@ -16,6 +16,24 @@ export type Collection = {
   collection_name: string;
 };
 
+export const getUser = async (uid: string | undefined) => {
+  try {
+    const { data: profiles, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", uid);
+
+    if (error) {
+      console.error("Error fetching user:", error);
+      return null;
+    }
+
+    return profiles[0];
+  } catch (error) {
+    console.error("Error fetching user:", error);
+  }
+};
+
 export const getCollections = async (uid: string | undefined) => {
   try {
     const { data: collections, error } = await supabase
@@ -25,9 +43,28 @@ export const getCollections = async (uid: string | undefined) => {
 
     if (error) {
       console.error("Error fetching collection:", error);
+      return null;
     }
 
     return collections;
+  } catch (error) {
+    console.error("Error fetching collection:", error);
+  }
+};
+
+export const getCollectionName = async (collection_id: string | undefined) => {
+  try {
+    const { data: collection, error } = await supabase
+      .from("collections")
+      .select("collection_name")
+      .eq("collection_id", collection_id);
+
+    if (error) {
+      console.error("Error fetching collection:", error);
+      return null;
+    }
+
+    return collection[0].collection_name;
   } catch (error) {
     console.error("Error fetching collection:", error);
   }
@@ -104,6 +141,31 @@ export const insertArtworkIntoCollection = async (
     }
   } catch (error) {
     console.error("Error inserting artwork:", error);
+  }
+};
+
+export const updateUsername = async (
+  username: string,
+  id: string | undefined
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("profiles")
+      .update({ username: username })
+      .eq("id", id)
+      .select();
+
+    if (error) {
+      console.error(`Error updating profile username`, error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      console.warn(`No profile found to update.`);
+      return;
+    }
+  } catch (error) {
+    console.error("Error updating profile username artwork:", error);
   }
 };
 

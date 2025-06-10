@@ -8,7 +8,7 @@ export default function Header() {
   const handleLogOut = async () => {
     let { error } = await supabase.auth.signOut();
     if (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

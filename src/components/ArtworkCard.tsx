@@ -20,8 +20,8 @@ export default function ArtworkCard({
   institution,
   objectId,
 }: ArtworkCardProps) {
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(true);
 
   useEffect(() => {
     setImageError(false);
@@ -90,7 +90,7 @@ export default function ArtworkCard({
               !imageLoaded ? "hidden" : ""
             }`}
             src={thumbnail}
-            alt="Artwork thumbnail"
+            alt={title || "Artwork"}
             onLoad={handleImageLoad}
             onError={handleImageError}
           />

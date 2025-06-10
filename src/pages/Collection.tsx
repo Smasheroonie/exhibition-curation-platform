@@ -2,23 +2,33 @@ import { useEffect, useState } from "react";
 import {
   deleteArtworkFromCollection,
   getArtworksByCollectionId,
+  getCollectionName,
   type ArtworkData,
 } from "../api/supabase";
 import { Link, useParams } from "react-router";
 import { UserAuth } from "../context/AuthContext";
+import { GridLoader } from "react-spinners";
 
 export default function Collection() {
   const { session } = UserAuth();
   const { uid, collection_id } = useParams();
+  const [loading, setLoading] = useState(false);
 
   const [artworks, setArtworks] = useState<ArtworkData[] | []>([]);
+  const [displayedCollectionName, setDisplayedCollectionName] =
+    useState<string>("");
 
   const fetchArtworks = async () => {
+    setLoading(true);
+    const collectionName = await getCollectionName(collection_id);
+    setDisplayedCollectionName(collectionName);
     const fetchedArtworks = await getArtworksByCollectionId(collection_id);
     if (fetchedArtworks) {
       setArtworks(fetchedArtworks);
+      setLoading(false);
     } else {
       setArtworks([]);
+      setLoading(false);
     }
   };
 
@@ -42,9 +52,16 @@ export default function Collection() {
     fetchArtworks();
   }, []);
 
-  return (
+  return loading ? (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8 px-4">
+      <GridLoader color="#155dfc" size={50} aria-label="Loading spinner" />
+    </div>
+  ) : (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 py-8 px-4">
       <div className="w-full max-w-4xl mx-auto">
+        <h1 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
+          {displayedCollectionName}
+        </h1>
         {artworks.length ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {artworks.map((artwork) => (
@@ -64,8 +81,6 @@ export default function Collection() {
                 </div>
                 {session && session.user.id === uid ? (
                   <div className="mt-auto">
-                    {" "}
-                    {/* Pushes button to the bottom */}
                     <button
                       className="px-5 py-2 rounded-md bg-red-500 text-white font-medium hover:bg-red-600 transition-colors duration-200"
                       onClick={() =>
