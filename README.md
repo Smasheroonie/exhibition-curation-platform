@@ -59,4 +59,11 @@ You can also visit the hosted site here:
 
 - https://exhibitly-luke-goncalves.netlify.app
 
+## Test Credentials
+
+Please feel free to use these credentials in lieu of your own for testing out the project.
+
+- Email: **test@test.com**
+- Password: **test**
+
 ## Thank you for viewing my project!

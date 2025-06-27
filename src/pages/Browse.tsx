@@ -4,6 +4,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { fetchVAArtworks } from "../api/vaApi";
 import { fetchHAMArtworks } from "../api/hamApi";
 import { GridLoader } from "react-spinners";
+import { useSearchParams } from "react-router";
 
 type HamArtwork = {
   id: number;
@@ -40,9 +41,12 @@ type ProcessedArtwork = {
 };
 
 export default function Browse() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("Art");
-  const [orderParam, setOrderParam] = useState("desc");
+  const [orderParam, setOrderParam] = useState(
+    searchParams.get("order") || "desc"
+  );
   const [allArtworks, setAllArtworks] = useState<ProcessedArtwork[]>([]);
   const [searchInput, setSearchInput] = useState("");
 
@@ -204,7 +208,10 @@ export default function Browse() {
           name="order-select"
           id="order-select"
           value={orderParam}
-          onChange={(e) => setOrderParam(e.target.value)}
+          onChange={(e) => {
+            setOrderParam(e.target.value);
+            setSearchParams({ order: e.target.value });
+          }}
           className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="desc">Newest First</option>
