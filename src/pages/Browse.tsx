@@ -42,7 +42,7 @@ type ProcessedArtwork = {
 
 export default function Browse() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
   const [searchTerm, setSearchTerm] = useState("Art");
   const [orderParam, setOrderParam] = useState(
     searchParams.get("order") || "desc"
@@ -210,7 +210,7 @@ export default function Browse() {
           value={orderParam}
           onChange={(e) => {
             setOrderParam(e.target.value);
-            setSearchParams({ order: e.target.value });
+            setSearchParams({ page: "1", order: e.target.value });
           }}
           className="border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
@@ -238,7 +238,14 @@ export default function Browse() {
         <div className="flex justify-center items-center gap-4 py-4">
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-            onClick={() => setPage((old) => old - 1)}
+            onClick={() => {
+              const prevPage = (old: number) => old - 1;
+              setPage(prevPage);
+              setSearchParams({
+                page: (page - 1).toString(),
+                order: orderParam,
+              });
+            }}
             disabled={page === 1}
           >
             Previous Page
@@ -249,7 +256,12 @@ export default function Browse() {
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             onClick={() => {
-              setPage((old) => old + 1);
+              const nextPage = (old: number) => old + 1;
+              setPage(nextPage);
+              setSearchParams({
+                page: (page + 1).toString(),
+                order: orderParam,
+              });
             }}
             disabled={
               page >= (vaQuery.data?.info.pages || 0) &&
